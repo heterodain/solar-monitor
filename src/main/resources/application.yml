@@ -1,0 +1,4 @@
+device:
+  pv-controller:
+    com-port: "COM8"
+    unit-id: 1

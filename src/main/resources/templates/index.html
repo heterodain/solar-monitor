@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>チャージコントローラー モニター</title>
+    <meta charset="utf-8" />
+
+    <script src="https://www.gstatic.com/charts/loader.js"></script>
+    <script>
+        var wGraph;
+        var wGraphOption;
+        var vGraph;
+        var vGraphOption;
+
+        // Googleチャートライブラリ読み込み
+        google.charts.load('current', { 'packages': ['corechart'] });
+        google.charts.setOnLoadCallback(() => {
+            initGraph();
+            setInterval('updateGraph()', 3000); // 3秒毎にグラフ更新
+        });
+
+        // グラフ初期設定
+        function initGraph() {
+            // 電力グラフ
+            wGraph = new google.visualization.AreaChart(document.getElementById("wGraph"));
+            wGraphOption = {
+                title: "過去10分間の電力推移",
+                vAxis: {
+                    title: "電力(W)",
+                    minValue: 0
+                },
+                hAxis: {
+                    title: "時刻",
+                    gridlines: {
+                        count: 10
+                    },
+                    format: "mm:ss"
+                },
+                chartArea: {
+                    left: 70,
+                    right: 30,
+                    top: 65,
+                    bottom: 50,
+                    width: "97%",
+                    backgroundColor: {
+                        fill: "#fff",
+                        fillOpacity: 0
+                    }
+                },
+                height: 350,
+                bar: {
+                    groupWidth: "100%"
+                },
+                legend: {
+                    position: "top"
+                },
+                backgroundColor: {
+                    fill: "#FFF",
+                    fillOpacity: 0
+                },
+                isStacked: false
+            }
+
+            // 電圧グラフ
+            vGraph = new google.visualization.AreaChart(document.getElementById("vGraph"));
+            vGraphOption = {
+                title: "過去10分間の電圧推移",
+                colors : [ 'green' ],
+                vAxis: {
+                    title: "電圧(V)",
+                    minValue: 0
+                },
+                hAxis: {
+                    title: "時刻",
+                    gridlines: {
+                        count: 10
+                    },
+                    format: "mm:ss"
+                },
+                chartArea: {
+                    left: 70,
+                    right: 30,
+                    top: 65,
+                    bottom: 50,
+                    width: "97%",
+                    backgroundColor: {
+                        fill: "#fff",
+                        fillOpacity: 0
+                    }
+                },
+                height: 350,
+                bar: {
+                    groupWidth: "100%"
+                },
+                legend: {
+                    position: "top"
+                },
+                backgroundColor: {
+                    fill: "#FFF",
+                    fillOpacity: 0
+                },
+                isStacked: false
+            }
+        }
+
+        // グラフ更新
+        async function updateGraph() {
+            // チャージコントローラーのデータ取得
+            var response = await fetch("measure/data");
+            var json = await response.json();
+
+            // 電力グラフ描画
+            var wGraphData = new google.visualization.DataTable();
+            wGraphData.addColumn('datetime', '時刻');
+            wGraphData.addColumn('number', '発電電力');
+            wGraphData.addColumn('number', '負荷電力');
+
+            var wDatas = json.map(d => [new Date(Date.parse(d[0])), d[1], d[2]]);
+            wGraphData.addRows(wDatas);
+
+            wGraph.draw(wGraphData, wGraphOption);
+
+            // 電圧グラフ描画
+            var vGraphData = new google.visualization.DataTable();
+            vGraphData.addColumn('datetime', '時刻');
+            vGraphData.addColumn('number', 'バッテリー電圧');
+
+            var vDatas = json.map(d => [new Date(Date.parse(d[0])), d[3]]);
+            vGraphData.addRows(vDatas);
+
+            vGraph.draw(vGraphData, vGraphOption);
+        }
+
+        async function start() {
+            await fetch("measure/start", {"method": "POST"});
+        }
+
+        async function stop() {
+            await fetch("measure/stop", {"method": "POST"});
+        }
+    </script>
+</head>
+
+<body>
+    <button onclick="start();">開始</button>
+    <button onclick="stop();">停止</button>
+    <div id="wGraph" style="width: 100%">
+    </div>
+    <div id="vGraph" style="width: 100%">
+    </div>
+</body>
+
+</html>
