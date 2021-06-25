@@ -1,5 +1,7 @@
 package com.heterodain.solar.monitor.device;
 
+import java.util.Random;
+
 import com.ghgande.j2mod.modbus.ModbusException;
 import com.ghgande.j2mod.modbus.io.ModbusSerialTransaction;
 import com.ghgande.j2mod.modbus.msg.ReadInputRegistersRequest;
@@ -66,14 +68,14 @@ public class PvControllerDevice {
         res = (ReadInputRegistersResponse) tr.getResponse();
         data.battSOC = ((double) res.getRegisterValue(0)) / 100;
 
-        req = new ReadInputRegistersRequest(0x3201, 1);
-        req.setUnitID(info.getUnitId());
-        tr = new ModbusSerialTransaction(conn);
-        tr.setRequest(req);
-        tr.execute();
+        // req = new ReadInputRegistersRequest(0x3201, 1);
+        // req.setUnitID(info.getUnitId());
+        // tr = new ModbusSerialTransaction(conn);
+        // tr.setRequest(req);
+        // tr.execute();
 
-        res = (ReadInputRegistersResponse) tr.getResponse();
-        data.stage = STAGE.values()[(res.getRegisterValue(0) >> 2) & 0x0003];
+        // res = (ReadInputRegistersResponse) tr.getResponse();
+        // data.stage = STAGE.values()[(res.getRegisterValue(0) >> 2) & 0x0003];
 
         log.debug("{}", data);
 
@@ -86,43 +88,12 @@ public class PvControllerDevice {
     // data.loadPower = rand.nextDouble() * 100D;
     // data.pvPower = rand.nextDouble() * 100D;
     // data.battVolt = rand.nextDouble() * 14.8D;
+    // data.battSOC = rand.nextDouble() * 100D;
 
     // log.debug("{}", data);
 
     // return data;
     // }
-
-    /**
-     * 集計値取得
-     * 
-     * @param info 接続情報
-     * @param conn シリアル接続
-     * @return 集計値
-     * @throws ModbusException
-     */
-    public synchronized StaticalData readAggregate(PvController info, SerialConnection conn) throws ModbusException {
-        ReadInputRegistersRequest req = new ReadInputRegistersRequest(0x3300, 20);
-        req.setUnitID(info.getUnitId());
-        ModbusSerialTransaction tr = new ModbusSerialTransaction(conn);
-        tr.setRequest(req);
-        tr.execute();
-
-        ReadInputRegistersResponse res = (ReadInputRegistersResponse) tr.getResponse();
-
-        StaticalData data = new StaticalData();
-        data.dailyPvPower = ((double) res.getRegisterValue(4) + res.getRegisterValue(5) * 0x10000) / 100;
-        data.monthlyPvPower = ((double) res.getRegisterValue(6) + res.getRegisterValue(7) * 0x10000) / 100;
-        data.annualPvPower = ((double) res.getRegisterValue(8) + res.getRegisterValue(9) * 0x10000) / 100;
-        data.totalPvPower = ((double) res.getRegisterValue(10) + res.getRegisterValue(11) * 0x10000) / 100;
-        data.dailyLoadPower = ((double) res.getRegisterValue(12) + res.getRegisterValue(13) * 0x10000) / 100;
-        data.monthlyLoadPower = ((double) res.getRegisterValue(14) + res.getRegisterValue(15) * 0x10000) / 100;
-        data.annualLoadPower = ((double) res.getRegisterValue(16) + res.getRegisterValue(17) * 0x10000) / 100;
-        data.totalLoadPower = ((double) res.getRegisterValue(18) + res.getRegisterValue(19) * 0x10000) / 100;
-
-        log.debug("{}", data);
-
-        return data;
-    }
 
     @Getter
     @ToString
@@ -143,20 +114,6 @@ public class PvControllerDevice {
         public Double battSOC;
 
         public STAGE stage;
-    }
-
-    @Getter
-    @ToString
-    public static class StaticalData {
-        public Double dailyPvPower;
-        public Double monthlyPvPower;
-        public Double annualPvPower;
-        public Double totalPvPower;
-
-        public Double dailyLoadPower;
-        public Double monthlyLoadPower;
-        public Double annualLoadPower;
-        public Double totalLoadPower;
     }
 
     @AllArgsConstructor

@@ -11,6 +11,8 @@
         var wGraphOption;
         var vGraph;
         var vGraphOption;
+        var sGraph;
+        var sGraphOption;
 
         // Googleチャートライブラリ読み込み
         google.charts.load('current', { 'packages': ['corechart'] });
@@ -47,7 +49,7 @@
                         fillOpacity: 0
                     }
                 },
-                height: 350,
+                height: 300,
                 bar: {
                     groupWidth: "100%"
                 },
@@ -88,7 +90,48 @@
                         fillOpacity: 0
                     }
                 },
-                height: 350,
+                height: 300,
+                bar: {
+                    groupWidth: "100%"
+                },
+                legend: {
+                    position: "top"
+                },
+                backgroundColor: {
+                    fill: "#FFF",
+                    fillOpacity: 0
+                },
+                isStacked: false
+            }
+
+            // 容量グラフ
+            sGraph = new google.visualization.AreaChart(document.getElementById("sGraph"));
+            sGraphOption = {
+                title: "過去10分間の容量推移",
+                colors : [ 'orange' ],
+                vAxis: {
+                    title: "容量(%)",
+                    minValue: 0
+                },
+                hAxis: {
+                    title: "時刻",
+                    gridlines: {
+                        count: 10
+                    },
+                    format: "mm:ss"
+                },
+                chartArea: {
+                    left: 70,
+                    right: 30,
+                    top: 65,
+                    bottom: 50,
+                    width: "97%",
+                    backgroundColor: {
+                        fill: "#fff",
+                        fillOpacity: 0
+                    }
+                },
+                height: 300,
                 bar: {
                     groupWidth: "100%"
                 },
@@ -129,6 +172,16 @@
             vGraphData.addRows(vDatas);
 
             vGraph.draw(vGraphData, vGraphOption);
+
+            // 電圧グラフ描画
+            var sGraphData = new google.visualization.DataTable();
+            sGraphData.addColumn('datetime', '時刻');
+            sGraphData.addColumn('number', 'バッテリー残量');
+
+            var sDatas = json.map(d => [new Date(Date.parse(d[0])), d[4]]);
+            sGraphData.addRows(vDatas);
+
+            sGraph.draw(sGraphData, sGraphOption);
         }
 
         async function start() {
@@ -147,6 +200,8 @@
     <div id="wGraph" style="width: 100%">
     </div>
     <div id="vGraph" style="width: 100%">
+    </div>
+    <div id="sGraph" style="width: 100%">
     </div>
 </body>
 

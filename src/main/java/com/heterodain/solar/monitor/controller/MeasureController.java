@@ -33,7 +33,7 @@ public class MeasureController {
         var datas = tasks.getDatas();
         synchronized (datas) {
             return datas.stream().map(p -> new Object[] { p.getKey(), p.getValue().loadPower, p.getValue().pvPower,
-                    p.getValue().battVolt }).collect(Collectors.toList());
+                    p.getValue().battVolt, p.getValue().battSOC }).collect(Collectors.toList());
         }
     }
 
