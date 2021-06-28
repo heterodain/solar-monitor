@@ -16,7 +16,7 @@
         </encoder>
     </appender>
 
-    <logger name="com.heterodain.solargraph" level="DEBUG" />
+    <logger name="com.heterodain.solar.monitor" level="DEBUG" />
     <root level="INFO">
         <appender-ref ref="STDOUT" />
         <appender-ref ref="FILE" />
