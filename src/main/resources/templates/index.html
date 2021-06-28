@@ -26,7 +26,7 @@
             // 電力グラフ
             wGraph = new google.visualization.AreaChart(document.getElementById("wGraph"));
             wGraphOption = {
-                title: "過去10分間の電力推移",
+                title: "電力推移",
                 vAxis: {
                     title: "電力(W)",
                     minValue: 0
@@ -36,7 +36,7 @@
                     gridlines: {
                         count: 10
                     },
-                    format: "mm:ss"
+                    format: "HH:mm:ss"
                 },
                 chartArea: {
                     left: 70,
@@ -66,18 +66,17 @@
             // 電圧グラフ
             vGraph = new google.visualization.AreaChart(document.getElementById("vGraph"));
             vGraphOption = {
-                title: "過去10分間の電圧推移",
-                colors : [ 'green' ],
+                title: "電圧推移",
+                colors: ['green'],
                 vAxis: {
-                    title: "電圧(V)",
-                    minValue: 0
+                    title: "電圧(V)"
                 },
                 hAxis: {
                     title: "時刻",
                     gridlines: {
                         count: 10
                     },
-                    format: "mm:ss"
+                    format: "HH:mm:ss"
                 },
                 chartArea: {
                     left: 70,
@@ -107,18 +106,17 @@
             // 容量グラフ
             sGraph = new google.visualization.AreaChart(document.getElementById("sGraph"));
             sGraphOption = {
-                title: "過去10分間の容量推移",
-                colors : [ 'orange' ],
+                title: "容量推移",
+                colors: ['orange'],
                 vAxis: {
-                    title: "容量(%)",
-                    minValue: 0
+                    title: "容量(%)"
                 },
                 hAxis: {
                     title: "時刻",
                     gridlines: {
                         count: 10
                     },
-                    format: "mm:ss"
+                    format: "HH:mm:ss"
                 },
                 chartArea: {
                     left: 70,
@@ -179,17 +177,17 @@
             sGraphData.addColumn('number', 'バッテリー残量');
 
             var sDatas = json.map(d => [new Date(Date.parse(d[0])), d[4]]);
-            sGraphData.addRows(vDatas);
+            sGraphData.addRows(sDatas);
 
             sGraph.draw(sGraphData, sGraphOption);
         }
 
         async function start() {
-            await fetch("measure/start", {"method": "POST"});
+            await fetch("measure/start", { "method": "POST" });
         }
 
         async function stop() {
-            await fetch("measure/stop", {"method": "POST"});
+            await fetch("measure/stop", { "method": "POST" });
         }
     </script>
 </head>
