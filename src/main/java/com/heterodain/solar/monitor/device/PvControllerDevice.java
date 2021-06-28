@@ -66,7 +66,7 @@ public class PvControllerDevice {
         tr.execute();
 
         res = (ReadInputRegistersResponse) tr.getResponse();
-        data.battSOC = ((double) res.getRegisterValue(0)) / 100;
+        data.battSOC = ((double) res.getRegisterValue(0));
 
         // req = new ReadInputRegistersRequest(0x3201, 1);
         // req.setUnitID(info.getUnitId());
