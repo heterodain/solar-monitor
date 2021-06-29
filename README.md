@@ -24,7 +24,7 @@
 3. 実行 (Execute)
 
    - VS Code 上で実行 (Run on VS Code)  
-     App.java クラスを右クリックして実行してください。
+     App.java を右クリックして実行してください。 (Right-click on the App.java and run)
 
    - ターミナル上で実行 (Run on terminal)
      ```command
