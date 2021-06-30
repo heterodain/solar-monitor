@@ -35,7 +35,7 @@
    - ターミナル上で実行 (Run on terminal)
      ```command
      mvn clean package
-     java -jar solarpower-surve-1.0.jar
+     java -jar solar-monitor-1.0.jar
      ```
 
 4. ブラウザに画面を表示 (Display in browser)
