@@ -147,36 +147,36 @@
         // グラフ更新
         async function updateGraph() {
             // チャージコントローラーのデータ取得
-            var response = await fetch("measure/data");
-            var json = await response.json();
+            let response = await fetch("measure/data");
+            let json = await response.json();
 
             // 電力グラフ描画
-            var wGraphData = new google.visualization.DataTable();
+            let wGraphData = new google.visualization.DataTable();
             wGraphData.addColumn('datetime', '時刻');
             wGraphData.addColumn('number', '発電電力');
             wGraphData.addColumn('number', '負荷電力');
 
-            var wDatas = json.map(d => [new Date(Date.parse(d[0])), d[1], d[2]]);
+            let wDatas = json.map(d => [new Date(Date.parse(d[0])), d[1], d[2]]);
             wGraphData.addRows(wDatas);
 
             wGraph.draw(wGraphData, wGraphOption);
 
             // 電圧グラフ描画
-            var vGraphData = new google.visualization.DataTable();
+            let vGraphData = new google.visualization.DataTable();
             vGraphData.addColumn('datetime', '時刻');
             vGraphData.addColumn('number', 'バッテリー電圧');
 
-            var vDatas = json.map(d => [new Date(Date.parse(d[0])), d[3]]);
+            let vDatas = json.map(d => [new Date(Date.parse(d[0])), d[3]]);
             vGraphData.addRows(vDatas);
 
             vGraph.draw(vGraphData, vGraphOption);
 
             // 電圧グラフ描画
-            var sGraphData = new google.visualization.DataTable();
+            let sGraphData = new google.visualization.DataTable();
             sGraphData.addColumn('datetime', '時刻');
             sGraphData.addColumn('number', 'バッテリー残量');
 
-            var sDatas = json.map(d => [new Date(Date.parse(d[0])), d[4]]);
+            let sDatas = json.map(d => [new Date(Date.parse(d[0])), d[4]]);
             sGraphData.addRows(sDatas);
 
             sGraph.draw(sGraphData, sGraphOption);
