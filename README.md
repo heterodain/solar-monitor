@@ -11,6 +11,8 @@
 
 [![Video1](https://img.youtube.com/vi/efbGyuWX_BE/0.jpg)](https://www.youtube.com/watch?v=efbGyuWX_BE)
 
+[![Video2](https://img.youtube.com/vi/VzXYcjmUyp4/0.jpg)](https://www.youtube.com/watch?v=VzXYcjmUyp4)
+
 ## 必要要件 (Requirement)
 
 - PV コントローラー (PV controller)
