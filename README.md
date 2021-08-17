@@ -3,7 +3,7 @@
 チャージコントローラーから 1 秒毎にデータを取得してグラフ化するプログラムです。  
 (This program is get power-data from charge controller every second, and graphed)
 
-![SpringBoot](https://img.shields.io/badge/SpringBoot-2.5.1-green.svg) 
+![SpringBoot](https://img.shields.io/badge/SpringBoot-2.5.3-green.svg) 
 ![Lombok](https://img.shields.io/badge/Lombok-1.18.20-green.svg) 
 ![j2mod](https://img.shields.io/badge/j2mod-2.7.0-green.svg)
 
