@@ -1,7 +1,5 @@
 package com.heterodain.solar.monitor.device;
 
-import java.util.Random;
-
 import com.ghgande.j2mod.modbus.ModbusException;
 import com.ghgande.j2mod.modbus.io.ModbusSerialTransaction;
 import com.ghgande.j2mod.modbus.msg.ReadInputRegistersRequest;
