@@ -3,7 +3,15 @@
 チャージコントローラーから 1 秒毎にデータを取得してグラフ化するプログラムです。  
 (This program is get power-data from charge controller every second, and graphed)
 
-[![Video1](https://img.youtube.com/vi/6Da_AODUvFU/0.jpg)](https://www.youtube.com/watch?v=6Da_AODUvFU)
+![SpringBoot](https://img.shields.io/badge/SpringBoot-2.5.1-green.svg) 
+![Lombok](https://img.shields.io/badge/Lombok-1.18.20-green.svg) 
+![j2mod](https://img.shields.io/badge/j2mod-2.7.0-green.svg)
+
+![Image](image.png)
+
+[![Video1](https://img.youtube.com/vi/efbGyuWX_BE/0.jpg)](https://www.youtube.com/watch?v=efbGyuWX_BE)
+
+[![Video2](https://img.youtube.com/vi/VzXYcjmUyp4/0.jpg)](https://www.youtube.com/watch?v=VzXYcjmUyp4)
 
 ## 必要要件 (Requirement)
 
@@ -29,7 +37,7 @@
    - ターミナル上で実行 (Run on terminal)
      ```command
      mvn clean package
-     java -jar solarpower-surve-1.0.jar
+     java -jar solar-monitor-1.0.jar
      ```
 
 4. ブラウザに画面を表示 (Display in browser)
