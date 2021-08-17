@@ -14,6 +14,7 @@ import org.springframework.stereotype.Component;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.ToString;
+import lombok.var;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -32,15 +33,15 @@ public class PvControllerDevice {
      * @throws ModbusException
      */
     public synchronized RealtimeData readCurrent(PvController info, SerialConnection conn) throws ModbusException {
-        ReadInputRegistersRequest req = new ReadInputRegistersRequest(0x3100, 17);
+        var req = new ReadInputRegistersRequest(0x3100, 17);
         req.setUnitID(info.getUnitId());
-        ModbusSerialTransaction tr = new ModbusSerialTransaction(conn);
+        var tr = new ModbusSerialTransaction(conn);
         tr.setRequest(req);
         tr.execute();
 
-        ReadInputRegistersResponse res = (ReadInputRegistersResponse) tr.getResponse();
+        var res = (ReadInputRegistersResponse) tr.getResponse();
 
-        RealtimeData data = new RealtimeData();
+        var data = new RealtimeData();
         data.pvVolt = ((double) res.getRegisterValue(0)) / 100;
         data.pvAmp = ((double) res.getRegisterValue(1)) / 100;
         data.pvPower = ((double) res.getRegisterValue(2) + res.getRegisterValue(3) * 0x10000) / 100;
