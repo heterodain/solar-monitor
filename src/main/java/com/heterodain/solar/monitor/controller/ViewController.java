@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class ViewController {
 
     @GetMapping()
-    public String getGraphData() {
+    public String showGraph() {
         return "index";
     }
 }
