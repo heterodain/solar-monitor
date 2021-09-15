@@ -41,6 +41,7 @@
      mvn clean package
      java -jar solar-monitor-1.0.jar
      ```
+     > jarとapplication.ymlファイルを同一フォルダに置いてから実行 (Put jar and application.yml files in same folder and run)
 
 4. ブラウザに画面を表示 (Display in browser)
 
